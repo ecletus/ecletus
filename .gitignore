@@ -4,9 +4,19 @@
 *.dll
 *.so
 *.dylib
+/aghape
 
 # Test binary, build with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Any hidden files
+.*
+
+# vim swap files
+*.swp
+
+# backup files (kate, gedit etc)
+*~
