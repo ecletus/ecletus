@@ -14,13 +14,15 @@ import (
 )
 
 const (
-	SITES_CONFIG = "aghape:SitesConfig"
-	SETUP_CONFIG = "aghape:SetupConfig"
-	CONTAINER    = "aghape:Container"
-	ASSETFS      = "aghape:Assetfs"
+	SITES_CONFIG       = "aghape:SitesConfig"
+	SETUP_CONFIG       = "aghape:SetupConfig"
+	CONTAINER          = "aghape:Container"
+	ASSETFS            = "aghape:Assetfs"
+	DEFAULT_CONFIG_DIR = "config"
 )
 
 type Aghape struct {
+	ConfigDir   string
 	SitesConfig *sites.Config
 	SetupConfig *core.SetupConfig
 	AssetFS     api.Interface
@@ -40,9 +42,12 @@ func (a *Aghape) Options() *plug.Options {
 
 func (a *Aghape) Init(plugins []interface{}) error {
 	a.plugins = plugins
+	if a.ConfigDir == "" {
+		a.ConfigDir = DEFAULT_CONFIG_DIR
+	}
 
 	if a.SitesConfig == nil {
-		a.SitesConfig = NewSitesConfig()
+		a.SitesConfig = NewSitesConfig(a.ConfigDir)
 	}
 
 	if a.SetupConfig == nil {

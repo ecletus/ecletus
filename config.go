@@ -15,10 +15,10 @@ var (
 	HOME      = os.Getenv("HOME")
 )
 
-func NewSitesConfig() *sites.Config {
+func NewSitesConfig(configDir string) *sites.Config {
 	ConfigDir = os.Getenv("CONFIG_DIR")
 	if ConfigDir == "" {
-		ConfigDir = "config"
+		ConfigDir = configDir
 	}
 
 	Config := &sites.Config{}
