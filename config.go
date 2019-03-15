@@ -6,24 +6,17 @@ import (
 
 	"github.com/aghape/core"
 	"github.com/aghape/sites"
-	"github.com/jinzhu/configor"
 )
 
 var (
-	Root, _   = os.Getwd()
-	ConfigDir string
-	HOME      = os.Getenv("HOME")
+	Root, _ = os.Getwd()
+	HOME    = os.Getenv("HOME")
 )
 
-func NewSitesConfig(configDir string) *sites.Config {
-	ConfigDir = os.Getenv("CONFIG_DIR")
-	if ConfigDir == "" {
-		ConfigDir = configDir
-	}
-
+func NewSitesConfig(configDir *ConfigDir) *sites.Config {
 	Config := &sites.Config{}
 
-	if err := configor.Load(Config, ConfigDir+"/database.yml", ConfigDir+"/smtp.yml", ConfigDir+"/application.yml", ConfigDir+"/sites.yml"); err != nil {
+	if err := configDir.Load(Config, "database.yml", "smtp.yml", "application.yml", "sites.yml"); err != nil {
 		panic(err)
 	}
 

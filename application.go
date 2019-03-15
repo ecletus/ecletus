@@ -1,12 +1,12 @@
 package aghape
 
 import (
-	"github.com/moisespsena/go-assetfs/api"
+	"github.com/moisespsena/go-assetfs/assetfsapi"
 	"github.com/moisespsena/go-error-wrap"
 )
 
 type ApplicationInterface interface {
-	GetAssetFS() api.Interface
+	GetAssetFS() assetfsapi.Interface
 	GetPlugins() []interface{}
 	PreInit(a *Aghape) error
 	PrePlugins(a *Aghape) error
@@ -14,14 +14,14 @@ type ApplicationInterface interface {
 }
 
 type Application struct {
-	AssetFS         api.Interface
+	AssetFS         assetfsapi.Interface
 	Plugins         []interface{}
 	PrePluginstFunc func(a *Aghape) error
 	PreInitFunc     func(a *Aghape) error
 	PostInitFunc    func(a *Aghape) error
 }
 
-func (app *Application) GetAssetFS() api.Interface {
+func (app *Application) GetAssetFS() assetfsapi.Interface {
 	return app.AssetFS
 }
 
