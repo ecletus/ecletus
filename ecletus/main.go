@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/aghape/aghape/aghape/cmd"
+import "github.com/ecletus/ecletus/ecletus/cmd"
 
 func main() {
 	cmd.Execute()

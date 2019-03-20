@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-/aghape/aghape
+/ecletus/ecletus
 
 # Test binary, build with `go test -c`
 *.test

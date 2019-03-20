@@ -1,4 +1,4 @@
-package aghape
+package ecletus
 
 import (
 	"strings"

@@ -1,6 +1,6 @@
 // +build bindata
 
-package aghape
+package ecletus
 
-func (a *Aghape) preparePlugins() {
+func (a *Ecletus) preparePlugins() {
 }

@@ -1,2 +1,2 @@
-# aghape
-The Aghape CLI package
+# ecletus
+The Ecletus CLI package

@@ -1,11 +1,11 @@
-package aghape
+package ecletus
 
 import (
 	"os"
 	"strings"
 
-	"github.com/aghape/core"
-	"github.com/aghape/sites"
+	"github.com/ecletus/core"
+	"github.com/ecletus/sites"
 )
 
 var (

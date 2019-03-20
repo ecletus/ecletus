@@ -1,25 +1,25 @@
-package aghape
+package ecletus
 
 import (
 	"sync"
 
-	"github.com/aghape/aghape/gid"
+	"github.com/ecletus/ecletus/gid"
 )
 
-var instances = &aghapeInstances{}
+var instances = &ecletusInstances{}
 
-type aghapeInstances struct {
+type ecletusInstances struct {
 	data sync.Map
 }
 
-func (ai *aghapeInstances) with(agp *Aghape) func() {
+func (ai *ecletusInstances) with(agp *Ecletus) func() {
 	ai.data.Store(gid.GID(), agp)
 	return func() {
 		ai.data.Delete(gid.GID())
 	}
 }
 
-func Get() *Aghape {
+func Get() *Ecletus {
 	agp, _ := instances.data.Load(gid.GID())
-	return agp.(*Aghape)
+	return agp.(*Ecletus)
 }

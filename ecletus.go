@@ -1,4 +1,4 @@
-package aghape
+package ecletus
 
 import (
 	"io"
@@ -12,11 +12,11 @@ import (
 
 	"github.com/moisespsena/go-default-logger"
 
-	"github.com/aghape/cli"
-	"github.com/aghape/container"
-	"github.com/aghape/core"
-	"github.com/aghape/plug"
-	"github.com/aghape/sites"
+	"github.com/ecletus/cli"
+	"github.com/ecletus/container"
+	"github.com/ecletus/core"
+	"github.com/ecletus/plug"
+	"github.com/ecletus/sites"
 	"github.com/moisespsena/go-assetfs"
 	"github.com/moisespsena/go-assetfs/assetfsapi"
 	"github.com/moisespsena/go-error-wrap"
@@ -24,19 +24,19 @@ import (
 )
 
 const (
-	AGHAPE       = "aghape"
-	SITES_CONFIG = "aghape:SitesConfig"
-	SETUP_CONFIG = "aghape:SetupConfig"
-	CONTAINER    = "aghape:Container"
-	ASSETFS      = "aghape:Assetfs"
-	CONFIG_DIR   = "aghape:ConfigDir"
+	AGHAPE       = "ecletus"
+	SITES_CONFIG = "ecletus:SitesConfig"
+	SETUP_CONFIG = "ecletus:SetupConfig"
+	CONTAINER    = "ecletus:Container"
+	ASSETFS      = "ecletus:Assetfs"
+	CONFIG_DIR   = "ecletus:ConfigDir"
 
 	DEFAULT_CONFIG_DIR = "config"
 )
 
 var log = defaultlogger.NewLogger(path_helpers.GetCalledDir())
 
-type Aghape struct {
+type Ecletus struct {
 	task.Tasks
 	AppName     string
 	ConfigDir   *ConfigDir
@@ -47,26 +47,26 @@ type Aghape struct {
 	TempFS      *assetfs.AssetFileSystem
 	Container   *container.Container
 	plugins     []interface{}
-	PrePlugins  func(a *Aghape) error
-	PreInit     func(a *Aghape) error
+	PrePlugins  func(a *Ecletus) error
+	PreInit     func(a *Ecletus) error
 	done        []func()
 	cli         *cli.CLI
 	Stderr      io.Writer
 }
 
-func (a *Aghape) Plugins() *plug.Plugins {
+func (a *Ecletus) Plugins() *plug.Plugins {
 	return a.Container.Plugins
 }
 
-func (a *Aghape) Options() *plug.Options {
+func (a *Ecletus) Options() *plug.Options {
 	return a.Container.Options
 }
 
-func (a *Aghape) Done(f ...func()) {
+func (a *Ecletus) Done(f ...func()) {
 	a.done = append(a.done, f...)
 }
 
-func (a *Aghape) LoadLogLevels() {
+func (a *Ecletus) LoadLogLevels() {
 	var cfg LoggingConfig
 	err := a.ConfigDir.Load(&cfg, "log.yaml", "log.yml")
 	defaultLevel := cfg.GetLevel()
@@ -78,12 +78,12 @@ func (a *Aghape) LoadLogLevels() {
 		}
 	} else {
 		if !os.IsNotExist(err) {
-			panic(errors.New("Aghape.LoadLogLevels: " + err.Error()))
+			panic(errors.New("Ecletus.LoadLogLevels: " + err.Error()))
 		}
 	}
 }
 
-func (a *Aghape) Init(plugins []interface{}) error {
+func (a *Ecletus) Init(plugins []interface{}) error {
 	if a.AppName == "" {
 		a.AppName = os.Args[0]
 	}
@@ -147,7 +147,7 @@ func (a *Aghape) Init(plugins []interface{}) error {
 	return a.Container.Init()
 }
 
-func (a *Aghape) Setup(ta task.Appender) (err error) {
+func (a *Ecletus) Setup(ta task.Appender) (err error) {
 	defer instances.with(a)()
 	if err = a.CLI().Execute(); err != nil {
 		return
@@ -156,7 +156,7 @@ func (a *Aghape) Setup(ta task.Appender) (err error) {
 	return a.Tasks.Setup(ta)
 }
 
-func (a *Aghape) Run() (err error) {
+func (a *Ecletus) Run() (err error) {
 	defer instances.with(a)()
 	defer func() {
 		for _, done := range a.done {
@@ -166,7 +166,7 @@ func (a *Aghape) Run() (err error) {
 	return a.Tasks.Run()
 }
 
-func (a *Aghape) Start(done func()) (stop task.Stoper, err error) {
+func (a *Ecletus) Start(done func()) (stop task.Stoper, err error) {
 	ldone := instances.with(a)
 	return a.Tasks.Start(func() {
 		defer func() {
@@ -180,15 +180,15 @@ func (a *Aghape) Start(done func()) (stop task.Stoper, err error) {
 	})
 }
 
-func (a *Aghape) Migrate() error {
+func (a *Ecletus) Migrate() error {
 	return a.Container.Migrate()
 }
 
-func (a *Aghape) Main(main func()) {
+func (a *Ecletus) Main(main func()) {
 	main()
 }
 
-func (a *Aghape) CLI() *cli.CLI {
+func (a *Ecletus) CLI() *cli.CLI {
 	if a.cli == nil {
 		a.cli = a.Container.CLI()
 		a.cli.Stderr = a.Stderr
@@ -196,8 +196,8 @@ func (a *Aghape) CLI() *cli.CLI {
 	return a.cli
 }
 
-func New() *Aghape {
-	a := &Aghape{}
+func New() *Ecletus {
+	a := &Ecletus{}
 	a.Tasks.SetLog(log)
 	return a
 }
