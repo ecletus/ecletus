@@ -2,7 +2,7 @@ package ecletus
 
 import (
 	"github.com/moisespsena/go-assetfs/assetfsapi"
-	"github.com/moisespsena/go-error-wrap"
+	"github.com/moisespsena-go/error-wrap"
 )
 
 type ApplicationInterface interface {

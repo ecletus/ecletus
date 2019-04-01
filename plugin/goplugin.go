@@ -5,7 +5,7 @@ import (
 
 	"github.com/ecletus/ecletus"
 	"github.com/go-errors/errors"
-	"github.com/moisespsena/go-error-wrap"
+	"github.com/moisespsena-go/error-wrap"
 )
 
 var ErrInvalidApplication = errors.New("Invalid Application")
