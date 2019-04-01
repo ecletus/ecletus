@@ -2,7 +2,6 @@ package ecletus
 
 import (
 	"os"
-	"strings"
 
 	"github.com/ecletus/core"
 	"github.com/ecletus/sites"
@@ -19,16 +18,11 @@ func NewSitesConfig(configDir *ConfigDir) *sites.Config {
 	if err := configDir.Load(Config, "database.yml", "smtp.yml", "application.yml", "sites.yml"); err != nil {
 		panic(err)
 	}
-
-	if Config.Prefix != "" {
-		Config.Prefix = "/" + strings.Trim(Config.Prefix, "/") + "/"
-	}
 	return Config
 }
 
 func NewSetupConfig(sitesConfig *sites.Config) *core.SetupConfig {
 	return core.Setup(core.SetupOptions{
-		Home:   HOME,
-		Prefix: sitesConfig.Prefix,
+		Home: HOME,
 	})
 }
