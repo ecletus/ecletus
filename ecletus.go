@@ -10,7 +10,7 @@ import (
 
 	"github.com/moisespsena-go/task"
 
-	"github.com/moisespsena/go-default-logger"
+	"github.com/moisespsena-go/default-logger"
 
 	"github.com/ecletus/cli"
 	"github.com/ecletus/container"
@@ -20,7 +20,7 @@ import (
 	"github.com/moisespsena/go-assetfs"
 	"github.com/moisespsena/go-assetfs/assetfsapi"
 	"github.com/moisespsena/go-error-wrap"
-	"github.com/moisespsena/go-path-helpers"
+	"github.com/moisespsena-go/path-helpers"
 )
 
 const (
