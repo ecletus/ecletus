@@ -3,8 +3,8 @@
 package ecletus
 
 import (
-	"github.com/moisespsena/go-assetfs"
-	"github.com/moisespsena/go-assetfs/assetfsapi"
+	"github.com/moisespsena-go/assetfs"
+	"github.com/moisespsena-go/assetfs/assetfsapi"
 )
 
 func (a *Ecletus) preparePlugins() {

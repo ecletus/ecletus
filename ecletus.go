@@ -17,8 +17,8 @@ import (
 	"github.com/ecletus/core"
 	"github.com/ecletus/plug"
 	"github.com/ecletus/sites"
-	"github.com/moisespsena/go-assetfs"
-	"github.com/moisespsena/go-assetfs/assetfsapi"
+	"github.com/moisespsena-go/assetfs"
+	"github.com/moisespsena-go/assetfs/assetfsapi"
 	"github.com/moisespsena-go/error-wrap"
 	"github.com/moisespsena-go/path-helpers"
 )

@@ -1,7 +1,7 @@
 package ecletus
 
 import (
-	"github.com/moisespsena/go-assetfs/assetfsapi"
+	"github.com/moisespsena-go/assetfs/assetfsapi"
 	"github.com/moisespsena-go/error-wrap"
 )
 
