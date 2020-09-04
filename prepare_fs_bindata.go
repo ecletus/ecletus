@@ -2,5 +2,5 @@
 
 package ecletus
 
-func (a *Ecletus) preparePlugins() {
+func (this *Ecletus) preparePlugins() {
 }

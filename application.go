@@ -2,7 +2,7 @@ package ecletus
 
 import (
 	"github.com/moisespsena-go/assetfs/assetfsapi"
-	"github.com/moisespsena-go/error-wrap"
+	errwrap "github.com/moisespsena-go/error-wrap"
 )
 
 type ApplicationInterface interface {
@@ -51,19 +51,20 @@ func (app *Application) PostInit(a *Ecletus) error {
 }
 
 func LoadApplication(app ApplicationInterface) (*Ecletus, error) {
-	agp := &Ecletus{
-		AssetFS:    app.GetAssetFS(),
-		PreInit:    app.PreInit,
-		PrePlugins: app.PrePlugins,
+	ecl := &Ecletus{
+		AssetFS: app.GetAssetFS(),
 	}
+	ecl.
+		PrePluginsRegister(app.PrePlugins).
+		PreInit(app.PreInit)
 
-	if err := agp.Init(app.GetPlugins()); err != nil {
+	if err := ecl.Init(app.GetPlugins()); err != nil {
 		return nil, errwrap.Wrap(err, "Init")
 	}
 
-	if err := app.PostInit(agp); err != nil {
+	if err := app.PostInit(ecl); err != nil {
 		return nil, errwrap.Wrap(err, "Post Init")
 	}
 
-	return agp, nil
+	return ecl, nil
 }
